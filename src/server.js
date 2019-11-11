@@ -4,7 +4,7 @@ const routes = require('./routes');
 const cors = require('cors');
 const app = express();
 
-mongoose.connect('mongodb+srv://bottistore:bottistore@cluster0-xjfpv.mongodb.net/test?retryWrites=true&w=majority',{
+mongoose.connect(process.env.MONGO_URL,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
