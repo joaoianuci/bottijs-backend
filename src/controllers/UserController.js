@@ -26,12 +26,11 @@ module.exports = {
         });
     },
     async show(req, res){
-        const { user } = req.headers;
-        const loggedUser = await User.findById(user);
+        const { user_id } = req.params;
+        const loggedUser = await User.findById(user_id);
         if(!loggedUser){
             return res.status(400).send({error:"Not found user"});
         }
         return res.json(loggedUser);
-        
     }
 };

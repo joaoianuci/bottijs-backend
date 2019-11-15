@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const routes = require('./routes');
 const cors = require('cors');
 const app = express();
+const dotenv = require('dotenv');
+dotenv.config();
 
-mongoose.connect(process.env.MONGO_URL || 'mongodb+srv://bottistore:bottistore@cluster0-xjfpv.mongodb.net/test?retryWrites=true&w=majority',{
+mongoose.connect(process.env.MONGO_URL,{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -14,4 +16,4 @@ mongoose.set('useCreateIndex', true);
 app.use(cors());
 app.use(express.json());
 app.use(routes);
-app.listen(process.env.PORT || 3333);
+app.listen(process.env.PORT);

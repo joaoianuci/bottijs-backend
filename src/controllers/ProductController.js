@@ -15,15 +15,13 @@ module.exports = {
 
        return res.json(product);
     },
-    async index(req,res){
-        const { type } = req.query;
-        if(type === "Any" || type === "All"){
-            return res.json(await Product.find());
+    async show(req,res){
+        const { product_id } = req.params;
+        const product = await Product.findById(product_id);
+        if(!product){
+            return res.status(400).send({error:"Not found product"});
         }
-        if(type === ''){
-            return res.json({error: "Not found products for this filter"})
-        }
-        const products = await Product.find({type: type});
-        return res.json(products);
+        return res.json(product);
+        
     }
-}
+};
