@@ -10,7 +10,11 @@ module.exports = {
 
         let product = await Product.findOne({ name });
         if(!product){
-            product = await Product.create({imgURL, name, type,qntdStock, price, date});
+            try {
+                product = await Product.create({imgURL, name, type,qntdStock, price, date});
+            } catch {
+                return res.status(400).send({error: "Fail in insert a new product"});
+            }
         }
 
        return res.json(product);

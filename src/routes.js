@@ -12,7 +12,7 @@ const authMiddleware = require('./middlewares/auth');
 const routes = express.Router();
 
 routes.post('/users', UserController.store);
-routes.get('/users/:user_id', UserController.show);
+routes.get('/users/profile', UserController.show);
 routes.post('/products', ProductController.store);
 routes.get('/products/:product_id', ProductController.show);
 routes.get('/products', OfferController.index);

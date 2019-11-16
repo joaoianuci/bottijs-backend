@@ -1,7 +1,8 @@
 const User = require('../models/User');
 const mailer = require('../modules/mailer');
 const crypto = require('crypto');
-
+const dotenv = require('dotenv');
+dotenv.config();
 module.exports = {
     async store(req, res){
         const { email } = req.body;
@@ -22,11 +23,14 @@ module.exports = {
                     passwordResetExpires: now,
                 }
             });
+            const token_link = `${process.env.REACT_APP_URL}/reset-password?token=${token}`;
+            const text = `Hello ${user.name}`;
+            const home_link = `${process.env.REACT_APP_URL}`;
             mailer.sendMail({
                 to: email,
                 from: 'joaoianuci@gmail.com',
                 template:'auth/forgot_password',
-                context: { token },
+                context: {token_link, text, home_link},
             }, (err) =>{
                 if(err){
                     console.log(err)
