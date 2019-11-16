@@ -12,8 +12,9 @@ mongoose.connect(process.env.MONGO_URL,{
 });
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
-
-app.use(cors());
+app.use(cors({
+    origin:process.env.REACT_APP_URL
+}));
 app.use(express.json());
 app.use(routes);
 app.listen(process.env.PORT);
