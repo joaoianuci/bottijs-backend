@@ -30,6 +30,7 @@ module.exports = {
                 to: email,
                 from: 'joaoianuci@gmail.com',
                 template:'auth/forgot_password',
+                subject:'Reset your password',
                 context: {token_link, text, home_link},
             }, (err) =>{
                 if(err){
