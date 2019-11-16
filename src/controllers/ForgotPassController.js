@@ -28,7 +28,7 @@ module.exports = {
             const home_link = `${process.env.REACT_APP_URL}`;
             mailer.sendMail({
                 to: email,
-                from: 'joaoianuci@gmail.com',
+                from: process.env.MAIL_USER,
                 template:'auth/forgot_password',
                 subject:'Reset your password',
                 context: {token_link, text, home_link},
