@@ -1,20 +1,25 @@
 const express = require('express');
+const multer = require('multer');
 const UserController = require('./controllers/UserController');
 const ProductController = require('./controllers/ProductController');
+const TypesController = require('./controllers/TypesController');
 const OfferController = require('./controllers/OfferController');
 const CartController = require('./controllers/CartController');
 const PurchaseController = require('./controllers/PurchaseController');
 const AuthenticateController = require('./controllers/AuthenticateController');
 const ForgotPassController = require('./controllers/ForgotPassController');
 const ResetPassController = require('./controllers/ResetPassController');
-
+const uploadConfig = require('./config/upload');
 const authMiddleware = require('./middlewares/auth');
+
 const routes = express.Router();
+const upload = multer(uploadConfig);
 
 routes.post('/users', UserController.store);
 routes.get('/users/profile', UserController.show);
-routes.post('/products', ProductController.store);
+routes.post('/products', upload.single('thumbnail'),ProductController.store);
 routes.get('/products/:product_id', ProductController.show);
+routes.get('/types', TypesController.index);
 routes.get('/products', OfferController.index);
 routes.post('/products/:product_id/carts', CartController.store);
 routes.get('/users/cart', CartController.show);

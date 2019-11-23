@@ -1,7 +1,7 @@
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-
 const ProductSchema = new mongoose.Schema({
-    imgURL: String,
+    thumbnail: String,
     name: {
         type: String,
         required: true,
@@ -22,7 +22,13 @@ const ProductSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+},{ 
+    toJSON:{
+        virtuals:true,
     }
 });
-
+ProductSchema.virtual('thumbnail_url').get(function(){
+    return `${process.env.APP_URL}files/${this.thumbnail}`
+});
 module.exports = mongoose.model('Product', ProductSchema);
