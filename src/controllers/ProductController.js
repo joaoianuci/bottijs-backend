@@ -1,7 +1,7 @@
 const Product = require ('../models/Product');
 module.exports = {
     async store(req,res){
-        const { imgURL } = req.body;
+        const { filename } = req.file;
         const { name } = req.body;
         const { type } = req.body;
         const { qntdStock } = req.body;
@@ -11,7 +11,14 @@ module.exports = {
         let product = await Product.findOne({ name });
         if(!product){
             try {
-                product = await Product.create({imgURL, name, type,qntdStock, price, date});
+                product = await Product.create({
+                    thumbnail: filename,
+                    name,
+                    type,
+                    qntdStock,
+                    price,
+                    date
+                });
             } catch {
                 return res.status(400).send({error: "Fail in insert a new product"});
             }

@@ -22,12 +22,15 @@ module.exports = {
         return res.json(cart);
     },
     async show(req,res){
-        const { user_id } = req.params;
+        const { user_id } = req.headers;
         let user = await User.findById(user_id);
         if(!user){
             return res.status(400).send({error:"Not found user"});
         }
         const cartProducts = await Cart.find({ user: user_id});
+        if(cartProducts.lenght === undefined){
+            return res.status(400).send({message:"Cart empty"});
+        }
         return res.json(cartProducts);
     }
 }
