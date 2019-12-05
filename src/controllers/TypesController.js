@@ -7,6 +7,7 @@ module.exports = {
                 return type;
             }
         }).reduce((unique, item ) => unique.includes(item) ? unique : [...unique, item], []);
+        types.push('Any');
         return res.json(types);
     }
 }
