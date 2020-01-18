@@ -9,6 +9,7 @@ Backend of a botanic e-commerce with Node.js and MongoDB
 # Resources
 
 - [x] Create account.
+- [x] Add products.
 - [x] Login.
 - [x] Edit account informations.
 - [x] User cart.
