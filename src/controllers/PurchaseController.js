@@ -5,8 +5,8 @@ module.exports = {
     async store(req, res) {
         const { qntd } = req.body;
         const { date } = req.body;
-        const { user_id } = req.headers;
-        const { product_id } = req.params;
+        const { user_id } = req.params;
+        const { product_id } = req.headers;
         
         const user = await User.findById(user_id);
         if(!user)

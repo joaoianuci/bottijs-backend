@@ -4,11 +4,10 @@ const Product = require('../models/Product');
 module.exports = {
     async store(req, res) {
         const { qntd } = req.body;
-        const { user_id } = req.headers;
-        const { product_id } = req.params;
+        const { user_id } = req.params;
+        const { product_id } = req.body.headers;
         
         const productCart = await Product.findById(product_id);
-        
         if(!productCart){
             return res.status(400).send({error:"Product not found"});
         }
