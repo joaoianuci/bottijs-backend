@@ -16,15 +16,23 @@ const routes = express.Router();
 const upload = multer(uploadConfig);
 
 routes.post('/users', UserController.store);
-routes.get('/users/profile', UserController.show);
+routes.get('/users/:user_id', UserController.show);
+routes.put('/users/:user_id', UserController.update);
+
 routes.post('/products', upload.single('thumbnail'),ProductController.store);
 routes.get('/products/:product_id', ProductController.show);
+
 routes.get('/types', TypesController.index);
+
 routes.get('/products', OfferController.index);
-routes.post('/products/:product_id/carts', CartController.store);
+
+routes.post('/users/:user_id/cart', CartController.store);
 routes.get('/users/cart', CartController.show);
-routes.post('/products/:product_id/purchases', authMiddleware,PurchaseController.store);
-routes.post('/authenticate', AuthenticateController.store);
+
+routes.post('/users/:user_id/purchase', authMiddleware,PurchaseController.store);
+
+routes.post('/users/authenticate', AuthenticateController.store);
+
 routes.post('/forgot_password', ForgotPassController.store)
 routes.post('/forgot_password/reset_password', ResetPassController.store)
 module.exports = routes;    
