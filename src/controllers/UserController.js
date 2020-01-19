@@ -31,11 +31,25 @@ module.exports = {
         });
     },
     async show(req, res){
-        const { user_id } = req.headers;
+        const { user_id } = req.params;
         const loggedUser = await User.findById(user_id);
         if(!loggedUser){
             return res.status(400).send({error:"Not found user"});
         }
         return res.json(loggedUser);
+    },
+    async update(req, res){
+        const { user_id } = req.params;
+        const { name } = req.body;
+        const loggedUser = await User.findByIdAndUpdate(user_id,
+            {
+                $set: { name }
+            },{useFindAndModify: false}
+            );
+        if(!loggedUser)
+            return res.status(404).send("User not was found");
+
+        return res.json(loggedUser);
+        
     }
 };
