@@ -27,7 +27,7 @@ routes.get('/types', TypesController.index);
 routes.get('/products', OfferController.index);
 
 routes.post('/users/:user_id/cart', CartController.store);
-routes.get('/users/cart', CartController.show);
+routes.get('/users/:user_id/cart', CartController.index);
 
 routes.post('/users/:user_id/purchase', authMiddleware,PurchaseController.store);
 
