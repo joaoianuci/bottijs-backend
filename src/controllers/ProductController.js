@@ -30,7 +30,7 @@ module.exports = {
         const { product_id } = req.params;
         const product = await Product.findById(product_id);
         if(!product){
-            return res.status(400).send({error:"Not found product"});
+            return res.status(404).send({error:"Not found product"});
         }
         return res.json(product);
         
