@@ -6,7 +6,6 @@ module.exports = {
         const { type } = req.body;
         const { qntdStock } = req.body;
         const { price } = req.body;
-        const { date } = req.body;
 
         let product = await Product.findOne({ name });
         if(!product){
@@ -17,7 +16,6 @@ module.exports = {
                     type,
                     qntdStock,
                     price,
-                    date
                 });
             } catch {
                 return res.status(400).send({error: "Fail in insert a new product"});
@@ -34,5 +32,24 @@ module.exports = {
         }
         return res.json(product);
         
+    },
+    async update(req,res){
+        const { product_id } = req.params;
+        const { filename } = req.file;
+        const { name } = req.body;
+        const { type } = req.body;
+        const { qntdStock } = req.body;
+        const { price } = req.body;
+
+        const product = await Product.findByIdAndUpdate(product_id,
+            {
+                $set: { thumbnail: filename, name, price: Number(price), type, qntdStock }
+            },
+            { useFindAndModify: false }
+        );
+        if(!product){
+            return res.status(404).send("Product not was found");
+        }
+        return res.json(product);
     }
 };

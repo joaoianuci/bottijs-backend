@@ -20,11 +20,9 @@ module.exports = {
             return res.status(404).send({error:"Not found user"});
         }
         
-        const carts = await Cart.find({ user: user_id});
+        const conflictCart = await Cart.find({user: user_id, product: productCart._id});
 
-        const conflictCart = carts.filter(cart => cart.product === productCart._id);
-                
-        if(conflictCart === undefined){
+        if(conflictCart.length !== 0){
             return res.status(409).send({error:"That product already in user cart"});
         }
 
@@ -52,5 +50,22 @@ module.exports = {
         const cartProducts = await returnCartsAsProducts(carts);
         
         return res.json(cartProducts);
+    },
+    async destroy(req,res){
+        const { user_id } = req.params;
+        const { product_id } = req.headers;
+
+        const user = await User.findById(user_id);
+        if(!user){
+            return res.status(404).send({error:"Not found user"});
+        }
+        const product = await Product.findById(product_id);
+        if(!product){
+            return res.status(404).send({error:"Not found product"});
+        }
+
+        await Cart.findOneAndDelete({user: user_id, product: product_id});
+        
+        return res.json(); 
     }
 }

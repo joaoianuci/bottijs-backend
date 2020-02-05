@@ -48,8 +48,20 @@ module.exports = {
             );
         if(!loggedUser)
             return res.status(404).send("User not was found");
-
+        
+        loggedUser.name = name;
+        
         return res.json(loggedUser);
         
+    },
+    async destroy(req,res){
+        const { user_id } = req.params;
+        try{
+            await User.findByIdAndDelete(user_id);
+        }catch{
+            return res.status(404).send("User not was found");
+        }
+        
+        return res.json();
     }
 };
