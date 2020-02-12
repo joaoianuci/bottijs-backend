@@ -6,7 +6,7 @@ module.exports = {
         const { type } = req.body;
         const { qntdStock } = req.body;
         const { price } = req.body;
-
+        const { width, height, length, diameter, weight } = req.body;
         let product = await Product.findOne({ name });
         if(!product){
             try {
@@ -16,8 +16,13 @@ module.exports = {
                     type,
                     qntdStock,
                     price,
+                    width,
+                    height,
+                    length,
+                    diameter,
+                    weight
                 });
-            } catch {
+            } catch(e) {
                 return res.status(400).send({error: "Fail in insert a new product"});
             }
         }
@@ -40,10 +45,10 @@ module.exports = {
         const { type } = req.body;
         const { qntdStock } = req.body;
         const { price } = req.body;
-
+        const { width, height, length, diameter, weight } = req.body;
         const product = await Product.findByIdAndUpdate(product_id,
             {
-                $set: { thumbnail: filename, name, price: Number(price), type, qntdStock }
+                $set: { thumbnail: filename, name, price: Number(price), type, qntdStock, width, height, length, diameter, weight }
             },
             { useFindAndModify: false }
         );

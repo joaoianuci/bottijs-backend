@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+
 const UserController = require('./controllers/UserController');
 const ProductController = require('./controllers/ProductController');
 const TypesController = require('./controllers/TypesController');
@@ -8,10 +9,11 @@ const CartController = require('./controllers/CartController');
 const PurchaseController = require('./controllers/PurchaseController');
 const AuthenticateController = require('./controllers/AuthenticateController');
 const ForgotPassController = require('./controllers/ForgotPassController');
+const FreightController = require('./controllers/FreightController')
 const ResetPassController = require('./controllers/ResetPassController');
-const uploadConfig = require('./config/upload');
-const authMiddleware = require('./middlewares/auth');
 
+const authMiddleware = require('./middlewares/auth');
+const uploadConfig = require('./config/upload');
 const routes = express.Router();
 const upload = multer(uploadConfig);
 
@@ -38,4 +40,7 @@ routes.post('/users/authenticate', AuthenticateController.store);
 
 routes.post('/forgot_password', ForgotPassController.store)
 routes.post('/forgot_password/reset_password', ResetPassController.store)
+
+routes.post('/freights', FreightController.store);
+
 module.exports = routes;    
