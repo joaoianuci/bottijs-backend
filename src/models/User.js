@@ -24,7 +24,22 @@ const UserSchema = new Schema({
         type: String,
         require: true,
     },
+    address:{
+        type: {
+            number: { type: Number, required: true },
+            complement: { type: String },
+            street: { type: String, required: true },
+            city: { type: String, required: true },
+            state: { type: String, required: true },
+            cep: { type: String, required: true }
+        },
+        required: true
+    },
     createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
         type: Date,
         default: Date.now,
     },

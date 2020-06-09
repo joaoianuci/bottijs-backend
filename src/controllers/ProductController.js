@@ -56,5 +56,15 @@ module.exports = {
             return res.status(404).send("Product not was found");
         }
         return res.json(product);
+    },
+    async destroy(req, res){
+        const { product_id } = req.params;
+        try{
+            await Product.findByIdAndDelete(product_id);
+        }catch{
+            return res.status(404).send("Product not was found");
+        }
+        
+        return res.json();
     }
 };

@@ -6,9 +6,8 @@ const { host, port, user, pass } = mailConfig.mail;
 const transport = nodemailer.createTransport({
     host,
     port,
-    auth: {user, pass},
+    auth: {user,pass},
   });
-
   const handlebarOptions = {
     viewEngine:{
       extName:'.html',

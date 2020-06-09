@@ -2,7 +2,7 @@ const Product = require('../models/Product');
 const { calcFreight } = require('./integrations/correios');
 
 module.exports = {
-    async store(req, res){
+    async calcFreight(req, res){
         const { cep } = req.body;
         let { products } = req.body;
         products = JSON.stringify(products);
